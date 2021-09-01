@@ -8,13 +8,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
-function createData(id, nome, descricao) {
-  return { id, nome, descricao };
+function createData(id, nome, categoria) {
+  return { id, nome, categoria };
 }
 
 const rows = [
-  createData(1, "cama/mesa", "produtos de cama e mesa"),
-  createData(2, "cama/mesa", "produtos de cama e mesa"),
+  createData(1, "cama box casal", "Cama/Mesa"),
+  createData(2, "toalha rosto", "Banho"),
 ];
 
 const StyledTableCell = withStyles((theme) => ({
@@ -32,7 +32,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-class CategoriaList extends Component {
+class ProdutoList extends Component {
   render() {
     return (
       <section>
@@ -43,7 +43,7 @@ class CategoriaList extends Component {
               <TableRow>
                 <StyledTableCell align="right">Id</StyledTableCell>
                 <StyledTableCell align="right">Nome</StyledTableCell>
-                <StyledTableCell align="right">Descrição</StyledTableCell>
+                <StyledTableCell align="right">Categoria</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -53,7 +53,7 @@ class CategoriaList extends Component {
                     {e.id}
                   </StyledTableCell>
                   <StyledTableCell align="right">{e.nome}</StyledTableCell>
-                  <StyledTableCell align="right">{e.descricao}</StyledTableCell>
+                  <StyledTableCell align="right">{e.categoria}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -64,4 +64,4 @@ class CategoriaList extends Component {
   }
 }
 
-export default CategoriaList;
+export default ProdutoList;
