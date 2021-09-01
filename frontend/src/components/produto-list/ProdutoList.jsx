@@ -8,15 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
-function createData(id, nome, categoria) {
-  return { id, nome, categoria };
-}
-
-const rows = [
-  createData(1, "cama box casal", "Cama/Mesa"),
-  createData(2, "toalha rosto", "Banho"),
-];
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.error.dark,
@@ -33,6 +24,30 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 class ProdutoList extends Component {
+  repo;
+
+  constructor(props){
+    super(props);
+    this.state = {
+      list : []
+    }
+  }
+
+  componentDidMount(){
+    this.repo = this.props.repo;
+    this.setState({
+      list : this.repo.list()
+    })
+    this.repo.inscrever(this.getProd.bind(this))
+  }
+  componentWillUnmount(){
+    this.repo.desinscrever(this.getProd.bind(this))
+  }
+  getProd(list){
+    this.setState({
+      list:list
+    })
+  }
   render() {
     return (
       <section>
@@ -47,7 +62,7 @@ class ProdutoList extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((e, k) => (
+              {this.state.list.map((e, k) => (
                 <StyledTableRow key={k}>
                   <StyledTableCell component="th" scope="row">
                     {e.id}

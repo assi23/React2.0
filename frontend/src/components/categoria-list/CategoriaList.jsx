@@ -8,15 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
-function createData(id, nome, descricao) {
-  return { id, nome, descricao };
-}
-
-const rows = [
-  createData(1, "cama/mesa", "produtos de cama e mesa"),
-  createData(2, "cama/mesa", "produtos de cama e mesa"),
-];
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.error.dark,
@@ -33,6 +24,31 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 class CategoriaList extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      list : []
+    }
+  }
+
+  repo;
+
+  componentDidMount(){
+    this.repo = this.props.repo;
+    this.setState({
+      list  : this.repo.list()
+    })
+      this.repo.inscrever(this.getCat.bind(this))
+  }
+  componentWillUnmount(){
+    this.repo.desinscrever(this.getCat.bind(this))
+  }
+  getCat(list){
+    this.setState({
+      list:list
+    })
+  }
   render() {
     return (
       <section>
@@ -41,19 +57,13 @@ class CategoriaList extends Component {
           <Table size="medium" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <StyledTableCell align="right">Id</StyledTableCell>
-                <StyledTableCell align="right">Nome</StyledTableCell>
-                <StyledTableCell align="right">Descrição</StyledTableCell>
+                <StyledTableCell align="left">Nome</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((e, k) => (
+              {this.state.list.map((e, k) => (
                 <StyledTableRow key={k}>
-                  <StyledTableCell component="th" scope="row">
-                    {e.id}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{e.nome}</StyledTableCell>
-                  <StyledTableCell align="right">{e.descricao}</StyledTableCell>
+                  <StyledTableCell align="left">{e.nome}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
