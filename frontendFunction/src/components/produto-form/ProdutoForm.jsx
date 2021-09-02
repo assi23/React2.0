@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 function ProdutoForm({create,repo}){
-  let id;
+  let id = 1;
   let nome;
   let categoria;
   let [list,setList] = useState([]);
@@ -19,9 +19,13 @@ function ProdutoForm({create,repo}){
           e.stopPropagation();
           e.preventDefault();
           create(new Produto(id,nome,categoria))
+          document.getElementById("id").value = '';
+          document.getElementById("nome").value = '';
+          nome = "";
+          id+=1;
         }}> 
           <TextField
-            id="outlined-basic"
+            id="id"
             label="Id"
             type="number"
             variant="outlined"
@@ -29,9 +33,10 @@ function ProdutoForm({create,repo}){
             fullWidth
             margin="normal"
             onChange={(e)=> id = e.target.value}
+            disabled
           />
           <TextField
-            id="outlined-basic"
+            id="nome"
             label="Nome"
             variant="outlined"
             color="secondary"
@@ -40,9 +45,9 @@ function ProdutoForm({create,repo}){
             onChange={(e)=> nome = e.target.value}
           />
           <FormControl fullWidth color="secondary">
-        <InputLabel id="categoria">Selecione a categoria</InputLabel>
+        <InputLabel id="Categoria">Selecione a categoria</InputLabel>
         <Select
-          labelId="categoria"
+          labelId="Categoria"
           id="selecCategoria"
           onChange={(e)=> categoria = e.target.value}
         >

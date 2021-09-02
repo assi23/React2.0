@@ -12,9 +12,11 @@ function CategoriaForm({create}){
               e.stopPropagation();
               e.preventDefault();
               create(new Categoria(id,nome));
+              document.getElementById("Id").value = '';
+              document.getElementById("Nome").value = "";
             }}>
             <TextField
-            id="outlined-basic"
+            id="Id"
             label="Id"
             type="number"
             color="secondary"
@@ -23,7 +25,7 @@ function CategoriaForm({create}){
             onChange={(e)=> id = e.target.value}
           />
             <TextField
-              id="standard-basic"
+              id="Nome"
               label="Nome"
               color="secondary"
               fullWidth
